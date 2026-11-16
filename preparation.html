@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WakeyQuakey | Preparation</title>
+  <link rel="icon" type="image/x-icon" href="Images/1.png">
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="preparation.css">
+</head>
+<body>
+
+  <div class="nav-wrapper">
+    <nav class="navbar" aria-label="Main">
+      <a href="index.html" class="navbar-brand">
+        <div class="logo-crop">
+          <img src="Images/logoyellow.png" alt="WakeyQuakey Logo" class="brand-logo" onerror="this.style.display='none'">
+        </div>
+        <span class="brand-text"><span class="wakey">Wakey</span><span class="quakey">Quakey</span></span>
+      </a>
+
+      <ul class="navbar-links" id="navLinksContainer">
+        <div class="liquid-hover-pill" id="hoverPill"></div>
+        <div class="liquid-underline" id="activeUnderline"></div>
+        <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+        <li class="nav-item"><a href="aboutUs.html" class="nav-link">About Us</a></li>
+        <li class="nav-item"><a href="preparation.html" class="nav-link active">Prepare</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">FAQ</a></li>
+      </ul>
+
+      <div class="nav-auth" id="navAuth">
+        <button type="button" class="btn-signin" id="openModalBtn">Sign In</button>
+      </div>
+    </nav>
+  </div>
+
+  <div class="modal-overlay" id="authModalOverlay">
+    <div class="auth-modal">
+      <button type="button" class="modal-close" id="closeModalBtn" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div class="modal-header">
+        <div class="modal-logo-crop">
+          <img src="Images/3.png" alt="WakeyQuakey Logo" class="modal-logo" onerror="this.style.display='none'">
+        </div>
+        <div class="modal-title"><span class="dark">Wakey</span><span class="teal">Quakey</span></div>
+        <div class="modal-subtitle">EARTHQUAKE AWARENESS</div>
+      </div>
+
+      <div class="auth-tabs">
+        <button type="button" class="tab-btn active" data-tab="signin">Sign In</button>
+        <button type="button" class="tab-btn" data-tab="signup">Create Account</button>
+        <div class="tab-indicator" id="tabIndicator"></div>
+      </div>
+      
+      <form class="auth-form active" id="signinForm">
+        <h2 class="form-heading">Welcome back!</h2>
+        <p class="form-subtext">Please enter your details to continue</p>
+
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <input type="email" id="loginEmail" class="form-input" placeholder="you@gmail.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            <input type="password" id="loginPassword" class="form-input" placeholder="Password" required>
+            <button type="button" class="toggle-pw" data-target="loginPassword" aria-label="Toggle password">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label class="checkbox-label"><input type="checkbox" id="rememberMe"><span>Remember me</span></label>
+          <a class="forgot-link" id="forgotPwLink">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Sign in</span>
+          <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <div class="divider">or</div>
+
+        <div class="social-stack">
+          <button type="button" class="btn-social btn-google" onclick="socialLogin('Google')">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.5H12v4.8h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.8z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.8C3.5 21.1 7.4 24 12 24z"/></svg>
+            <span>Continue with Google</span>
+          </button>
+          <button type="button" class="btn-social btn-apple" onclick="socialLogin('Apple')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#0e1c2b"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+
+        <p class="modal-footer-text">Don't have an account? <a data-switch="signup">Create an account</a></p>
+      </form>
+      
+      <form class="auth-form" id="signupForm">
+        <h2 class="form-heading">Create an account</h2>
+        <p class="form-subtext">Join WakeyQuakey and be a part of a better tomorrow</p>
+
+        <div class="form-group">
+          <label class="form-label" for="signupName">Full Name</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            <input type="text" id="signupName" class="form-input" placeholder="Eric" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="signupEmail">Email Address</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <input type="email" id="signupEmail" class="form-input" placeholder="you@gmail.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupDob">Date of Birth (Optional)</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
+              <input type="text" id="signupDob" class="form-input" placeholder="dd/mm/yy" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="signupPassword">Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+              <input type="password" id="signupPassword" class="form-input" placeholder="Password" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupConfirm">Confirm Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+              <input type="password" id="signupConfirm" class="form-input" placeholder="Confirm" required>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Create an account</span>
+          <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <div class="divider">or</div>
+
+        <div class="social-row">
+          <button type="button" class="btn-social btn-google" onclick="socialLogin('Google')">
+            <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.5H12v4.8h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.8z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.8C3.5 21.1 7.4 24 12 24z"/></svg>
+            <span>Continue with Google</span>
+          </button>
+          <button type="button" class="btn-social btn-apple" onclick="socialLogin('Apple')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#0e1c2b"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+
+        <p class="modal-footer-text">Already have an account? <a data-switch="signin">Sign In</a></p>
+      </form>
+    </div>
+  </div>
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+     
+      <h1>Stay Safe Before the Tremors</h1>
+      <p>Preparedness saves lives. Learn key safety steps, build emergency kits, and protect your loved ones before a disaster strikes.</p>
+      <a href="#preparation-guide" class="hero-button">
+        <span>Explore Guide</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="importance">
+        <div class="section-container">
+      <div class="section-heading">
+        <span class="section-tag">WHY IT MATTERS</span>
+        <h2>The Importance of Preparation</h2>
+        <p>Taking early action builds community resilience and keeps you protected during emergencies.</p>
+      </div>
+
+      <div class="benefit-grid">
+        <div class="benefit-card">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <h3>Protects<br>Lives</h3>
+        </div>
+        <div class="benefit-card">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          <h3>Prevents<br>Damage</h3>
+        </div>
+        <div class="benefit-card">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+          <h3>Emergency<br>Response</h3>
+        </div>
+        <div class="benefit-card">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>
+          <h3>Reduces<br>Uncertainty</h3>
+        </div>
+        <div class="benefit-card">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <h3>Supports<br>Recovery</h3>
+        </div>
+      </div>
+      </div>
+    </section>
+
+   
+    <section class="before-earthquake" id="preparation-guide">
+         <div class="section-container">
+      <div class="section-heading">
+        <span class="section-tag">BE PREPARED</span>
+        <h2>Before an Earthquake</h2>
+        <p>Take these essential precautions to improve your safety and reduce potential risks.</p>
+      </div>
+
+      <div class="preparation-grid">
+        <article class="preparation-card">
+          <div class="card-image">
+            <img src="https://www.checkbook.org/V2/graphics/articles/Home-Security/1024/securing_your_home3.jpg" alt="Organised home interior">
+            <span class="card-number">01</span>
+          </div>
+          <div class="card-content">
+            <h3>Secure Your Home</h3>
+            <ul>
+              <li>Secure heavy furniture.</li>
+              <li>Fasten shelves and cabinets.</li>
+              <li>Keep heavy objects on lower shelves.</li>
+              <li>Identify potential household hazards.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="preparation-card">
+          <div class="card-image">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTQsE1fRWUWTz0q2pO35EDKG6rRzGC4MQd2rJ_2U8wT68G_j9I6BsmCZo_&s=10" alt="Emergency supplies">
+            <span class="card-number">02</span>
+          </div>
+          <div class="card-content">
+            <h3>Prepare an Emergency Kit</h3>
+            <ul>
+              <li>Store drinking water.</li>
+              <li>Prepare non-perishable food.</li>
+              <li>Include a first-aid kit.</li>
+              <li>Keep a flashlight and batteries.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="preparation-card">
+          <div class="card-image">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQev2GPuu3PYVESd9miPaVQS_cHk8ts-MBT6du0GoO1qGKW7q-H678shms&s=10" alt="Building and surrounding area">
+            <span class="card-number">03</span>
+          </div>
+          <div class="card-content">
+            <h3>Identify Safe Places</h3>
+            <ul>
+              <li>Identify sturdy furniture.</li>
+              <li>Stay away from windows.</li>
+              <li>Choose safe meeting locations.</li>
+              <li>Know evacuation routes.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="preparation-card">
+          <div class="card-image">
+            <img src="https://acpdecisions.org/wp-content/uploads/2019/06/GettyImages-948000872.jpg" alt="Family learning emergency procedures">
+            <span class="card-number">04</span>
+          </div>
+          <div class="card-content">
+            <h3>Learn Emergency Procedures</h3>
+            <ul>
+              <li>Practise Drop, Cover, and Hold On.</li>
+              <li>Learn basic first aid.</li>
+              <li>Discuss family communication plans.</li>
+              <li>Understand emergency instructions.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+      </div>
+    </section>
+  
+    <section class="preparation-centre">
+          <div class="section-container">
+      <div class="section-heading">
+        <span class="section-tag">YOUR READINESS HUB</span>
+        <h2>Preparation Centre</h2>
+        <p>Practical tools to help you prepare for an earthquake.</p>
+      </div>
+
+      <div class="centre-grid">
+       
+        <div class="tool-card checklist-card">
+          <div class="tool-header">
+            <h3>Emergency Kit Checklist</h3>
+            <span class="tool-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </span>
+          </div>
+
+          <div class="progress-information">
+            <span id="check-progress-text">0% Completed</span>
+            <span id="check-count">0 / 10</span>
+          </div>
+
+          <div class="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+          </div>
+
+          <div class="checklist" id="checklist">
+            <label class="check-item"><input type="checkbox" value="Water"><span>Drinking water</span></label>
+            <label class="check-item"><input type="checkbox" value="Food"><span>Non-perishable food</span></label>
+            <label class="check-item"><input type="checkbox" value="First aid"><span>First-aid kit</span></label>
+            <label class="check-item"><input type="checkbox" value="Flashlight"><span>Flashlight and batteries</span></label>
+            <label class="check-item"><input type="checkbox" value="Medicine"><span>Essential medicines</span></label>
+            <label class="check-item"><input type="checkbox" value="Documents"><span>Important documents</span></label>
+            <label class="check-item"><input type="checkbox" value="Radio"><span>Portable emergency radio</span></label>
+            <label class="check-item"><input type="checkbox" value="Hygiene"><span>Hygiene supplies</span></label>
+            <label class="check-item"><input type="checkbox" value="Whistle"><span>Emergency whistle</span></label>
+            <label class="check-item"><input type="checkbox" value="Clothing"><span>Extra clothing and blankets</span></label>
+          </div>
+
+          <div class="checklist-bottom">
+            <span id="checklist-status">Start preparing your emergency kit.</span>
+            <button type="button" id="reset-checklist">Reset</button>
+          </div>
+        </div>
+
+       
+        <div class="tool-card contacts-card">
+          <div class="tool-header contact-heading">
+            <h3>Emergency Contacts</h3>
+            <span class="tool-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </span>
+          </div>
+
+          <p class="contact-description">Keep important emergency services accessible. Verify local contact numbers before an emergency.</p>
+
+          <div class="contact-list">
+            <div class="contact-item">
+              <div class="contact-symbol fire">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"/></svg>
+              </div>
+              <div class="contact-details"><h4>Fire &amp; Rescue (191)</h4><p>Fire &amp; rescue emergencies</p></div>
+              <a href="tel:191" class="contact-call" aria-label="Call 191"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg></a>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-symbol medical">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 6v12M6 12h12"/><rect x="3" y="3" width="18" height="18" rx="4"/></svg>
+              </div>
+              <div class="contact-details"><h4>Medical Help (192)</h4><p>Ambulance &amp; medical emergencies</p></div>
+              <a href="tel:192" class="contact-call" aria-label="Call 192"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg></a>
+            </div>
+
+            <div class="contact-item">
+              <div class="contact-symbol police">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div class="contact-details"><h4>Police (199)</h4><p>Public safety assistance</p></div>
+              <a href="tel:199" class="contact-call" aria-label="Call 199"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2z"/></svg></a>
+            </div>
+          </div>
+
+          <p class="contact-note">Always confirm the correct emergency numbers for your location.</p>
+        </div>
+      </div>
+      </div>
+    </section>
+  </main>
+
+  <section class="action-section">
+    <div class="action-container">
+      <div class="action-content">
+        <span class="section-tag">TAKE ACTION NOW</span>
+        <h2>Be Ready. Act<br>Quickly.</h2>
+        <p>Practise your earthquake safety routine and build confidence in your response. Preparation saves time, improves awareness, and helps you respond calmly during an emergency.</p>
+        <button type="button" class="start-drill" id="start-drill">Start Emergency Drill</button>
+      </div>
+
+      <div class="timer-card">
+        <div class="timer-header">
+          <h3>Emergency Drill</h3>
+          <span class="timer-status" id="timer-status">READY</span>
+        </div>
+        <p id="timer-instruction">Practise your earthquake response. Get ready to begin.</p>
+        <div class="timer-display">
+          <span id="countdown">30</span>
+          <small>SECONDS</small>
+        </div>
+        <div class="timer-controls">
+          <button type="button" id="pause-drill" disabled>Pause</button>
+          <button type="button" id="reset-drill">Reset</button>
+        </div>
+        <div class="timer-progress"><div id="timer-progress-fill"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <a href="index.html" class="footer-brand">
+            <div class="logo-crop"><img src="Images/logoyellow.png" alt="WakeyQuakey Logo" class="brand-logo" onerror="this.style.display='none'"></div>
+            <span class="brand">Wakey<span>Quakey</span></span>
+          </a>
+          <p>Knowledge is today. Preparedness is tomorrow.<br>Empowering communities with real-time earthquake tracking, interactive fault physics simulations, and comprehensive preparedness tools to save lives.</p>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home &rarr;</a></li>
+            <li><a href="aboutUs.html">About Us &rarr;</a></li>
+            <li><a href="preparation.html">Prepare &rarr;</a></li>
+            <li><a href="inspiration.html">References &rarr;</a></li>
+            <li><a href="faq.html">FAQ &rarr;</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Stay Updated</h4>
+          <p>Receive instant emergency alerts and seismic safety updates.</p>
+          <form class="sub" id="subscribeForm">
+            <input type="email" id="subEmail" placeholder="Your email" aria-label="Email address" required>
+            <button class="btn" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <p class="copy">&copy; 2026 WakeyQuakey. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast"><span class="toast-dot"></span><span id="toastMessage">Welcome back!</span></div>
+  <script src="preparation.js"></script>
+</body>
+</html>

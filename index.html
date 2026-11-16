@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>WakeyQuakey | Home</title>
+  <link rel="icon" type="image/x-icon" href="Images/1.png">
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+  <div class="nav-wrapper">
+    <nav class="navbar" aria-label="Main">
+      <a href="index.html" class="navbar-brand">
+        <div class="logo-crop">
+          <img src="Images/logoyellow.png" alt="WakeyQuakey Logo" class="brand-logo" onerror="this.style.display='none'">
+        </div>
+        <span class="brand-text">
+          <span class="wakey">Wakey</span><span class="quakey">Quakey</span>
+        </span>
+      </a>
+
+      <ul class="navbar-links" id="navLinksContainer">
+        <div class="liquid-hover-pill" id="hoverPill"></div>
+        <div class="liquid-underline" id="activeUnderline"></div>
+        <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+        <li class="nav-item"><a href="aboutUs.html" class="nav-link">About Us</a></li>
+        <li class="nav-item"><a href="preparation.html" class="nav-link">Prepare</a></li>
+        <li class="nav-item"><a href="faq.html" class="nav-link">FAQ</a></li>
+      </ul>
+
+      <div class="nav-auth" id="navAuth">
+        <button type="button" class="btn-signin" id="openModalBtn">Sign In</button>
+      </div>
+    </nav>
+  </div>
+
+  <div class="modal-overlay" id="authModalOverlay">
+    <div class="auth-modal">
+      <button type="button" class="modal-close" id="closeModalBtn" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+
+      <div class="modal-header">
+        <div class="modal-logo-crop">
+          <img src="Images/3.png" alt="WakeyQuakey Logo" class="modal-logo" onerror="this.style.display='none'">
+        </div>
+        <div class="modal-title"><span class="dark">Wakey</span><span class="teal">Quakey</span></div>
+        <div class="modal-subtitle">EARTHQUAKE AWARENESS</div>
+      </div>
+
+      <div class="auth-tabs">
+        <button type="button" class="tab-btn active" data-tab="signin">Sign In</button>
+        <button type="button" class="tab-btn" data-tab="signup">Create Account</button>
+        <div class="tab-indicator" id="tabIndicator"></div>
+      </div>
+      <!-- SIGN IN FORM -->
+      <form class="auth-form active" id="signinForm">
+        <h2 class="form-heading">Welcome back!</h2>
+        <p class="form-subtext">Please enter your details to continue</p>
+
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            <input type="email" id="loginEmail" class="form-input" placeholder="you@gmail.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+            <input type="password" id="loginPassword" class="form-input" placeholder="Password" required>
+            <button type="button" class="toggle-pw" data-target="loginPassword" aria-label="Toggle password">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label class="checkbox-label"><input type="checkbox" id="rememberMe"><span>Remember me</span></label>
+          <a class="forgot-link" id="forgotPwLink">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Sign in</span>
+          <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <div class="divider">or</div>
+
+        <div class="social-stack">
+          <button type="button" class="btn-social btn-google" onclick="socialLogin('Google')">
+            <svg width="16" height="16" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.5H12v4.8h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.8z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.8C3.5 21.1 7.4 24 12 24z"/></svg>
+            <span>Continue with Google</span>
+          </button>
+          <button type="button" class="btn-social btn-apple" onclick="socialLogin('Apple')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#0e1c2b"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+
+        <p class="modal-footer-text">Don't have an account? <a data-switch="signup">Create an account</a></p>
+      </form>
+      <form class="auth-form" id="signupForm">
+        <h2 class="form-heading">Create an account</h2>
+        <p class="form-subtext">Join WakeyQuakey and be a part of a better tomorrow</p>
+
+        <div class="form-group">
+          <label class="form-label" for="signupName">Full Name</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+            <input type="text" id="signupName" class="form-input" placeholder="Eric" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="signupEmail">Email Address</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              <input type="email" id="signupEmail" class="form-input" placeholder="you@gmail.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupDob">Date of Birth (Optional)</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/></svg>
+              <input type="text" id="signupDob" class="form-input" placeholder="dd/mm/yy" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="signupPassword">Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+              <input type="password" id="signupPassword" class="form-input" placeholder="Password" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="signupConfirm">Confirm Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+              <input type="password" id="signupConfirm" class="form-input" placeholder="Confirm" required>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Create an account</span>
+          <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <div class="divider">or</div>
+
+        <div class="social-row">
+          <button type="button" class="btn-social btn-google" onclick="socialLogin('Google')">
+            <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.5H12v4.8h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/><path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.8z"/><path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.8C3.5 21.1 7.4 24 12 24z"/></svg>
+            <span>Continue with Google</span>
+          </button>
+          <button type="button" class="btn-social btn-apple" onclick="socialLogin('Apple')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#0e1c2b"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+
+        <p class="modal-footer-text">Already have an account? <a data-switch="signin">Sign In</a></p>
+      </form>
+    </div>
+  </div>
+  <header class="hero" id="home">
+    <img src="Images/photo_2026-10-23_08-10-35.jpg" alt="Earthquake Background" class="hero-img-bg">
+    <div class="hero-overlay"></div>
+
+    <div class="wrap">
+      <div class="hero-body">
+       
+        <h1>When the ground moves <em>knowledge matters.</em></h1>
+        <p class="hero-sub">Understand tectonic science, explore historic earthquakes, and build life-saving preparedness habits before the next tremor strikes.</p>
+        <div class="hero-actions">
+          <a href="preparation.html" class="btn light">
+            <span>Explore Preparedness Guide</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#science" class="btn ghost">Learn the Science</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="science" id="science">
+      <div class="wrap">
+        <div class="section-head">
+          <small>HOW EARTHQUAKES WORK</small>
+          <h2>Understand the science. <strong>Prepare for the unexpected.</strong></h2>
+          <p>Earthquakes are natural events caused by the sudden release of energy within the Earth. Understanding how they happen is the first step toward reducing their risks.</p>
+        </div>
+
+        <div class="tiles">
+          <div class="tile t1">
+            <div class="tile-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M2 12h6l3-6 4 12 3-6h4"/></svg></div>
+            <h3>Tectonic plates</h3>
+            <p>Moving slabs of crust that grind, collide and slip past each other.</p>
+          </div>
+          <div class="tile t2">
+            <div class="tile-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7" stroke-dasharray="3 3"/><circle cx="12" cy="12" r="10"/></svg></div>
+            <h3>Seismic waves</h3>
+            <p>Energy that travels through the ground and shakes the surface.</p>
+          </div>
+          <div class="tile t3">
+            <div class="tile-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
+            <h3>Magnitude</h3>
+            <p>A scale that measures how much energy a quake releases.</p>
+          </div>
+          <div class="tile t4">
+            <div class="tile-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <h3>Preparedness</h3>
+            <p>Simple actions that keep you and your family safe.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="shook" id="history">
+      <div class="wrap">
+        <h2>When the Earth Shook</h2>
+        <p>Explore the earthquakes that changed history, reshaped landscapes, and reminded humanity of the ground's power beneath our feet.</p>
+
+        <div class="photos">
+          <a href="#history" class="photo">
+            <img src="Images/photo_2026-10-23_08-10-34.jpg" alt="Chile, 1960" class="photo-img">
+            <span class="caption"><strong>Chile, 1960</strong>The most powerful earthquake ever recorded left towns in ruins.</span>
+          </a>
+          <a href="#history" class="photo">
+            <img src="Images/photo_2026-10-23_08-10-33.jpg" alt="Japan, 2011" class="photo-img">
+            <span class="caption"><strong>Japan, 2011</strong>A tsunami carried boats and debris deep into the streets.</span>
+          </a>
+          <a href="#history" class="photo">
+            <img src="Images/photo_2026-10-23_08-10-32.jpg" alt="Myanmar, 2025" class="photo-img">
+            <span class="caption"><strong>Myanmar, 2025</strong>Even sacred buildings collapsed when the ground shook.</span>
+          </a>
+        </div>
+      </div>
+    </section>
+    <section class="before" id="prepare">
+      <div class="wrap">
+        <small>Earthquake safety</small>
+        <h2>Before the Ground Shakes</h2>
+
+        <div class="cards">
+          <div class="card">
+            <div class="thumb"><img src="Images/photo_2026-10-23_23-34-36.jpg" alt="Secure Your Space"></div>
+            <div class="text">
+              <h3>Secure Your Space</h3>
+              <p>Fasten heavy furniture, shelves and appliances to walls.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="thumb"><img src="Images/photo_2026-10-23_08-10-31.jpg" alt="Prepare an Emergency Kit"></div>
+            <div class="text">
+              <h3>Prepare an Emergency Kit</h3>
+              <p>Pack water, food, a torch, first aid and important documents.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="thumb"><img src="Images/image (7).png" alt="Plan Your Safety"></div>
+            <div class="text">
+              <h3>Plan Your Safety</h3>
+              <p>Agree on safe spots and a meeting point with your family.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="center">
+          <a href="preparation.html" class="btn">
+            <span>Explore the Preparedness Guide</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="quiz" id="quiz">
+      <div class="wrap">
+        <h2>Test Your <span>Knowledge</span></h2>
+        <p>Answer a few questions to see how earthquake-ready you are.</p>
+        <a href="quiz.html" class="btn light">
+          <span>START</span>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <a href="index.html" class="footer-brand">
+            <div class="logo-crop"><img src="Images/logoyellow.png" alt="WakeyQuakey Logo" class="brand-logo" onerror="this.style.display='none'"></div>
+            <span class="brand">Wakey<span>Quakey</span></span>
+          </a>
+          <p>Knowledge is today. Preparedness is tomorrow.<br>Empowering communities with real-time earthquake tracking, interactive fault physics simulations, and comprehensive preparedness tools to save lives.</p>
+        </div>
+
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="index.html">Home &rarr;</a></li>
+            <li><a href="aboutUs.html">About Us &rarr;</a></li>
+            <li><a href="preparation.html">Prepare &rarr;</a></li>
+            <li><a href="inspiration.html">References &rarr;</a></li>
+            <li><a href="faq.html">FAQ &rarr;</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4>Stay Updated</h4>
+          <p>Receive instant emergency alerts and seismic safety updates.</p>
+          <form class="sub" id="subscribeForm">
+            <input type="email" id="subEmail" placeholder="Your email" aria-label="Email address" required>
+            <button class="btn" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+
+      <p class="copy">&copy; 2026 WakeyQuakey. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast">
+    <span class="toast-dot"></span>
+    <span id="toastMessage">Welcome back!</span>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>

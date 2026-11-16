@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WakeyQuakey - Navbar & Auth Modal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --liquid-ease: cubic-bezier(0.22, 1, 0.36, 1);
+      --liquid-bounce: cubic-bezier(0.34, 1.4, 0.64, 1);
+      --navy-bg: #102033;
+      --navy-dark: #0e1c2b;
+      --gold-accent: #f9c846;
+      --teal-primary: #1c7c8c;
+      --teal-dark: #135b68;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #2b333e;
+      padding: 24px 32px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+    }
+
+    /* ================= NAVBAR STYLES ================= */
+    .navbar {
+      width: 100%;
+      max-width: 1360px;
+      height: 76px;
+      background-color: #102033;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px 0 34px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: box-shadow 0.4s var(--liquid-ease);
+    }
+
+    .navbar:hover {
+      box-shadow: 0 14px 36px rgba(0, 0, 0, 0.36);
+    }
+
+    .navbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      user-select: none;
+      transition: transform 0.45s var(--liquid-bounce);
+    }
+
+    .navbar-brand:hover {
+      transform: scale(1.03);
+    }
+
+    .logo-crop {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .brand-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transform: scale(1.35);
+      transition: transform 0.6s var(--liquid-bounce), filter 0.4s var(--liquid-ease);
+    }
+
+    .navbar-brand:hover .brand-logo {
+      transform: scale(1.48) rotate(-10deg);
+      filter: drop-shadow(0 0 8px rgba(249, 200, 70, 0.45));
+    }
+
+    .brand-text {
+      font-size: 21px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      line-height: 1;
+    }
+
+    .brand-text .wakey { color: #ffffff; }
+    .brand-text .quakey { color: #f9c846; }
+
+    .navbar-links {
+      position: relative;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-item { position: relative; z-index: 2; }
+
+    .nav-link {
+      color: rgba(255, 255, 255, 0.88);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 10px 18px;
+      display: inline-block;
+      border-radius: 9999px;
+      transition: color 0.35s var(--liquid-ease), transform 0.35s var(--liquid-bounce);
+    }
+
+    .nav-link:hover {
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .nav-link.active {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    .liquid-hover-pill {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      transform: translateY(-50%);
+      pointer-events: none;
+      opacity: 0;
+      z-index: 1;
+      transition: transform 0.45s var(--liquid-ease), width 0.45s var(--liquid-ease), opacity 0.3s ease;
+    }
+
+    .liquid-underline {
+      position: absolute;
+      bottom: 2px;
+      left: 0;
+      height: 3px;
+      background-color: #f9c846;
+      border-radius: 9999px;
+      box-shadow: 0 0 10px rgba(249, 200, 70, 0.55);
+      pointer-events: none;
+      z-index: 3;
+      transition: transform 0.5s var(--liquid-bounce), width 0.45s var(--liquid-ease);
+    }
+
+    .btn-signin {
+      position: relative;
+      overflow: hidden;
+      background-color: #ffffff;
+      color: #102033;
+      border: none;
+      border-radius: 9999px;
+      padding: 13px 32px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      z-index: 1;
+      transition: transform 0.4s var(--liquid-bounce), box-shadow 0.4s var(--liquid-ease);
+    }
+
+    .btn-signin::before {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: -10%;
+      width: 120%;
+      height: 160%;
+      background-color: #f9c846;
+      border-radius: 42%;
+      z-index: -1;
+      transition: top 0.55s var(--liquid-ease), transform 0.65s var(--liquid-ease);
+    }
+
+    .btn-signin:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 6px 20px rgba(249, 200, 70, 0.35);
+    }
+
+    .btn-signin:hover::before {
+      top: -25%;
+      transform: rotate(12deg);
+    }
+
+    /* ================= MODAL OVERLAY & CARD ================= */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 32, 0.65);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s var(--liquid-ease);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .auth-modal {
+      position: relative;
+      width: 100%;
+      max-width: 470px;
+      max-height: 92vh;
+      overflow-y: auto;
+      scrollbar-width: none;
+      background: linear-gradient(180deg, #ffffff 0%, #f3fafa 45%, #cdeae9 100%);
+      border-radius: 26px;
+      padding: 32px 36px 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+      transform: translateY(28px) scale(0.94);
+      opacity: 0;
+      transition: transform 0.5s var(--liquid-bounce), opacity 0.4s var(--liquid-ease);
+    }
+
+    .auth-modal::-webkit-scrollbar {
+      display: none;
+    }
+
+    .modal-overlay.open .auth-modal {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 22px;
+      width: 34px;
+      height: 34px;
+      border: none;
+      background: transparent;
+      color: #102033;
+      cursor: pointer;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s ease, transform 0.4s var(--liquid-bounce);
+    }
+
+    .modal-close:hover {
+      background: rgba(16, 32, 51, 0.08);
+      transform: rotate(90deg) scale(1.08);
+    }
+
+    .modal-header {
+      text-align: center;
+      margin-bottom: 18px;
+    }
+
+    .modal-logo-crop {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .modal-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transform: scale(1.35);
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: -0.4px;
+      line-height: 1.15;
+    }
+
+    .modal-title .dark { color: #0e1c2b; }
+    .modal-title .teal { color: #1c7c8c; }
+
+    .modal-subtitle {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: 2.2px;
+      color: #102033;
+      margin-top: 3px;
+      text-transform: uppercase;
+    }
+
+    .auth-tabs {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1.5px solid rgba(16, 32, 51, 0.14);
+      margin-bottom: 20px;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      padding: 10px 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 14.5px;
+      font-weight: 600;
+      color: #7b8a97;
+      cursor: pointer;
+      transition: color 0.35s var(--liquid-ease);
+    }
+
+    .tab-btn.active {
+      color: #1c7c8c;
+    }
+
+    .tab-indicator {
+      position: absolute;
+      bottom: -1.5px;
+      left: 0;
+      width: 50%;
+      height: 2.5px;
+      background-color: #1c7c8c;
+      border-radius: 99px;
+      transition: transform 0.45s var(--liquid-bounce);
+    }
+
+    .auth-form {
+      display: none;
+      animation: liquidFadeIn 0.42s var(--liquid-ease) forwards;
+    }
+
+    .auth-form.active {
+      display: block;
+    }
+
+    @keyframes liquidFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .form-heading {
+      font-size: 17px;
+      font-weight: 700;
+      color: #0e1c2b;
+      margin-bottom: 2px;
+    }
+
+    .form-subtext {
+      font-size: 12px;
+      color: #4a5b6a;
+      margin-bottom: 14px;
+    }
+
+    .form-group {
+      margin-bottom: 12px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      color: #102033;
+      margin-bottom: 5px;
+    }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 15px;
+      width: 15px;
+      height: 15px;
+      color: #0e1c2b;
+      pointer-events: none;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 42px;
+      padding: 0 38px 0 38px;
+      border-radius: 9999px;
+      border: 1.5px solid #2b3e4f;
+      background: rgba(255, 255, 255, 0.72);
+      font-family: 'Poppins', sans-serif;
+      font-size: 12.5px;
+      color: #0e1c2b;
+      outline: none;
+      transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s var(--liquid-ease);
+    }
+
+    .form-input::placeholder {
+      color: #7d8d9b;
+    }
+
+    .form-input:focus {
+      border-color: #1c7c8c;
+      background: #ffffff;
+      box-shadow: 0 0 0 3.5px rgba(28, 124, 140, 0.16);
+    }
+
+    .toggle-pw {
+      position: absolute;
+      right: 13px;
+      background: none;
+      border: none;
+      color: #5b6d7c;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.25s ease;
+    }
+
+    .toggle-pw:hover {
+      color: #1c7c8c;
+    }
+
+    .form-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+      margin: 8px 4px 16px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #102033;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-label input {
+      width: 14px;
+      height: 14px;
+      accent-color: #1c7c8c;
+      cursor: pointer;
+    }
+
+    .forgot-link {
+      color: #1c7c8c;
+      text-decoration: underline;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .btn-submit {
+      position: relative;
+      width: 100%;
+      height: 44px;
+      border: none;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #1d7e8d 0%, #144354 55%, #0e2234 100%);
+      color: #ffffff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 6px;
+      overflow: hidden;
+      transition: transform 0.4s var(--liquid-bounce), box-shadow 0.4s var(--liquid-ease);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(20, 67, 84, 0.35);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.98);
+    }
+
+    .btn-submit .arrow-icon {
+      position: absolute;
+      right: 18px;
+      transition: transform 0.4s var(--liquid-bounce);
+    }
+
+    .btn-submit:hover .arrow-icon {
+      transform: translateX(4px);
+    }
+
+    .divider {
+      text-align: center;
+      font-size: 12px;
+      color: #364959;
+      margin: 12px 0;
+    }
+
+    .social-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .social-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .btn-social {
+      height: 42px;
+      border-radius: 9999px;
+      border: none;
+      font-family: 'Poppins', sans-serif;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      transition: transform 0.35s var(--liquid-bounce), box-shadow 0.3s ease;
+    }
+
+    .btn-social:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.14);
+    }
+
+    .btn-google {
+      background-color: #0e1c2b;
+      color: #ffffff;
+    }
+
+    .btn-apple {
+      background-color: #ffffff;
+      color: #0e1c2b;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    }
+
+    .modal-footer-text {
+      text-align: center;
+      font-size: 12px;
+      color: #102033;
+      margin-top: 16px;
+    }
+
+    .modal-footer-text a {
+      color: #1c7c8c;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal-footer-text a:hover {
+      text-decoration: underline;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #102033;
+      color: #ffffff;
+      padding: 14px 22px;
+      border-radius: 9999px;
+      font-size: 13.5px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      transform: translateY(100px) scale(0.9);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 2000;
+      transition: transform 0.5s var(--liquid-bounce), opacity 0.4s var(--liquid-ease);
+    }
+
+    .toast.show {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+
+    .toast-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #f9c846;
+    }
+
+    .toast.error .toast-dot {
+      background: #ff5f5f;
+    }
+
+    @media (max-width: 520px) {
+      .auth-modal { padding: 26px 20px 22px; }
+      .form-row, .social-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="#" class="navbar-brand">
+      <div class="logo-crop">
+        <img src="Images/2.png" alt="WakeyQuakey Logo" class="brand-logo" onerror="this.style.display='none'">
+      </div>
+      <span class="brand-text">
+        <span class="wakey">Wakey</span><span class="quakey">Quakey</span>
+      </span>
+    </a>
+
+    <ul class="navbar-links" id="navLinksContainer">
+      <div class="liquid-hover-pill" id="hoverPill"></div>
+      <div class="liquid-underline" id="activeUnderline"></div>
+      <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="#about" class="nav-link">About Us</a></li>
+      <li class="nav-item"><a href="#prepare" class="nav-link active">Prepare</a></li>
+      <li class="nav-item"><a href="#faq" class="nav-link">FAQ</a></li>
+    </ul>
+
+    <button type="button" class="btn-signin" id="navAuthBtn">Sign In</button>
+  </nav>
+
+  <!-- AUTH MODAL -->
+  <div class="modal-overlay" id="authModalOverlay">
+    <div class="auth-modal">
+      <button type="button" class="modal-close" id="closeModalBtn" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <div class="modal-header">
+        <div class="modal-logo-crop">
+          <img src="Images/3.png" alt="WakeyQuakey Logo" class="modal-logo" onerror="this.style.display='none'">
+        </div>
+        <div class="modal-title">
+          <span class="dark">Wakey</span><span class="teal">Quakey</span>
+        </div>
+        <div class="modal-subtitle">EARTHQUAKE AWARENESS</div>
+      </div>
+
+      <div class="auth-tabs">
+        <button type="button" class="tab-btn active" data-tab="signin">Sign In</button>
+        <button type="button" class="tab-btn" data-tab="signup">Create Account</button>
+        <div class="tab-indicator" id="tabIndicator"></div>
+      </div>
+
+      <!-- SIGN IN FORM -->
+      <form class="auth-form active" id="signinForm">
+        <h2 class="form-heading">Welcome back!</h2>
+        <p class="form-subtext">Please enter your details to continue</p>
+
+        <div class="form-group">
+          <label class="form-label" for="loginEmail">Email</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+            <input type="email" id="loginEmail" class="form-input" placeholder="you@gmail.com" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">Password</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+            </svg>
+            <input type="password" id="loginPassword" class="form-input" placeholder="Password" required>
+            <button type="button" class="toggle-pw" data-target="loginPassword" aria-label="Toggle password">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-options">
+          <label class="checkbox-label">
+            <input type="checkbox" id="rememberMe">
+            <span>Remember me</span>
+          </label>
+          <a class="forgot-link" id="forgotPwLink">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Sign in</span>
+          <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+
+        <div class="divider">or</div>
+
+        <div class="social-stack">
+          <button type="button" class="btn-social btn-google" onclick="socialLogin('Google')">
+            <svg width="16" height="16" viewBox="0 0 24 24">
+              <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
+              <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.5H12v4.8h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
+              <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.8z"/>
+              <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.8C3.5 21.1 7.4 24 12 24z"/>
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+
+          <button type="button" class="btn-social btn-apple" onclick="socialLogin('Apple')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#0e1c2b">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+            </svg>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+
+        <p class="modal-footer-text">
+          Don't have an account? <a data-switch="signup">Create an account</a>
+        </p>
+      </form>
+
+      <!-- CREATE ACCOUNT FORM -->
+      <form class="auth-form" id="signupForm">
+        <h2 class="form-heading">Create an account</h2>
+        <p class="form-subtext">Join WakeyQuakey and be a part of a better tomorrow</p>
+
+        <div class="form-group">
+          <label class="form-label" for="signupName">Full Name</label>
+          <div class="input-wrapper">
+            <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+            </svg>
+            <input type="text" id="signupName" class="form-input" placeholder="Eric" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="signupEmail">Email Address</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
+              </svg>
+              <input type="email" id="signupEmail" class="form-input" placeholder="you@gmail.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="signupDob">Date of Birth (Optional)</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V10h14v10z"/>
+              </svg>
+              <input type="text" id="signupDob" class="form-input" placeholder="dd/mm/yy" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="signupPassword">Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+              </svg>
+              <input type="password" id="signupPassword" class="form-input" placeholder="Password" required>
+              <button type="button" class="toggle-pw" data-target="signupPassword" aria-label="Toggle password">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="signupConfirm">Confirm Password</label>
+            <div class="input-wrapper">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+              </svg>
+              <input type="password" id="signupConfirm" class="form-input" placeholder="Confirm" required>
+              <button type="button" class="toggle-pw" data-target="signupConfirm" aria-label="Toggle password">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <span>Create an account</span>
+          <svg class="arrow-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14M12 5l7 7-7 7"/>
+          </svg>
+        </button>
+
+        <div class="divider">or</div>
+
+        <div class="social-row">
+          <button type="button" class="btn-social btn-google" onclick="socialLogin('Google')">
+            <svg width="15" height="15" viewBox="0 0 24 24">
+              <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.6l3.1-3.1C17.3 1.7 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.8C6.2 7.2 8.9 5 12 5z"/>
+              <path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.7-.2-2.5H12v4.8h6.5c-.3 1.5-1.1 2.8-2.4 3.6l3.7 2.9c2.2-2 3.7-5 3.7-8.8z"/>
+              <path fill="#FBBC05" d="M5.3 14.8c-.2-.8-.4-1.6-.4-2.5s.2-1.7.4-2.5L1.6 7C.6 9 0 11.2 0 13.5s.6 4.5 1.6 6.5l3.7-2.8z"/>
+              <path fill="#34A853" d="M12 24c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.1-6.7-5l-3.7 2.8C3.5 21.1 7.4 24 12 24z"/>
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+
+          <button type="button" class="btn-social btn-apple" onclick="socialLogin('Apple')">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="#0e1c2b">
+              <path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
+            </svg>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+
+        <p class="modal-footer-text">
+          Already have an account? <a data-switch="signin">Sign In</a>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <span class="toast-dot"></span>
+    <span id="toastMessage">Welcome back!</span>
+  </div>
+
+  <script>
+    const navContainer = document.getElementById('navLinksContainer');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const hoverPill = document.getElementById('hoverPill');
+    const activeUnderline = document.getElementById('activeUnderline');
+
+    function moveUnderline(targetLink) {
+      if (!targetLink) return;
+      const pad = 18;
+      activeUnderline.style.width = `${targetLink.offsetWidth - pad * 2}px`;
+      activeUnderline.style.transform = `translateX(${targetLink.parentElement.offsetLeft + pad}px)`;
+    }
+
+    function moveHoverPill(targetLink) {
+      hoverPill.style.width = `${targetLink.offsetWidth}px`;
+      hoverPill.style.transform = `translate(${targetLink.parentElement.offsetLeft}px, -50%)`;
+      hoverPill.style.opacity = '1';
+    }
+
+    function initActiveState() {
+      const currentActive = document.querySelector('.nav-link.active');
+      if (currentActive) moveUnderline(currentActive);
+    }
+
+    window.addEventListener('load', initActiveState);
+    window.addEventListener('resize', initActiveState);
+
+    navLinks.forEach(link => {
+      link.addEventListener('mouseenter', () => moveHoverPill(link));
+      link.addEventListener('click', () => {
+        navLinks.forEach(item => item.classList.remove('active'));
+        link.classList.add('active');
+        moveUnderline(link);
+      });
+    });
+
+    navContainer.addEventListener('mouseleave', () => {
+      hoverPill.style.opacity = '0';
+    });
+
+    const modalOverlay = document.getElementById('authModalOverlay');
+    const navAuthBtn = document.getElementById('navAuthBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabIndicator = document.getElementById('tabIndicator');
+    const signinForm = document.getElementById('signinForm');
+    const signupForm = document.getElementById('signupForm');
+
+    function openModal(tab = 'signin') {
+      switchTab(tab);
+      modalOverlay.classList.add('open');
+    }
+
+    function closeModal() {
+      modalOverlay.classList.remove('open');
+    }
+
+    function switchTab(tab) {
+      tabBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.tab === tab));
+      if (tab === 'signin') {
+        tabIndicator.style.transform = 'translateX(0%)';
+        signinForm.classList.add('active');
+        signupForm.classList.remove('active');
+      } else {
+        tabIndicator.style.transform = 'translateX(100%)';
+        signupForm.classList.add('active');
+        signinForm.classList.remove('active');
+      }
+    }
+
+    navAuthBtn.addEventListener('click', () => {
+      const currentUser = JSON.parse(localStorage.getItem('wq_current_user'));
+      if (currentUser) {
+        localStorage.removeItem('wq_current_user');
+        updateNavbarUser(null);
+        showToast('Signed out successfully');
+      } else {
+        openModal('signin');
+      }
+    });
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => switchTab(btn.dataset.tab));
+    });
+
+    document.querySelectorAll('[data-switch]').forEach(link => {
+      link.addEventListener('click', () => switchTab(link.dataset.switch));
+    });
+
+    const eyeOpenSVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+    const eyeClosedSVG = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/></svg>';
+
+    document.querySelectorAll('.toggle-pw').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const input = document.getElementById(btn.dataset.target);
+        const isHidden = input.type === 'password';
+        input.type = isHidden ? 'text' : 'password';
+        btn.innerHTML = isHidden ? eyeClosedSVG : eyeOpenSVG;
+      });
+    });
+
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    let toastTimer;
+
+    function showToast(msg, isError = false) {
+      toastMessage.textContent = msg;
+      toast.classList.toggle('error', isError);
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+    }
+
+    function getUsersDB() {
+      return JSON.parse(localStorage.getItem('wq_users_db')) || [];
+    }
+
+    function saveUsersDB(users) {
+      localStorage.setItem('wq_users_db', JSON.stringify(users));
+    }
+
+    function updateNavbarUser(user) {
+      if (user) {
+        const firstName = user.name.split(' ')[0];
+        navAuthBtn.textContent = `Hi, ${firstName} (Sign Out)`;
+      } else {
+        navAuthBtn.textContent = 'Sign In';
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const savedUser = JSON.parse(localStorage.getItem('wq_current_user'));
+      if (savedUser) updateNavbarUser(savedUser);
+    });
+
+    signupForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+      const dob = document.getElementById('signupDob').value;
+      const password = document.getElementById('signupPassword').value;
+      const confirm = document.getElementById('signupConfirm').value;
+
+      if (password !== confirm) {
+        showToast('Passwords do not match!', true);
+        return;
+      }
+
+      const users = getUsersDB();
+      if (users.some(u => u.email === email)) {
+        showToast('An account with this email already exists.', true);
+        return;
+      }
+
+      const newUser = { name, email, dob, password };
+      users.push(newUser);
+      saveUsersDB(users);
+
+      document.getElementById('loginEmail').value = email;
+      signupForm.reset();
+      switchTab('signin');
+      showToast('Account created! Please sign in.');
+    });
+
+    signinForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+      const password = document.getElementById('loginPassword').value;
+
+      const users = getUsersDB();
+      const matchedUser = users.find(u => u.email === email && u.password === password);
+
+      if (!matchedUser) {
+        showToast('Invalid email or password. Try creating an account first.', true);
+        return;
+      }
+
+      localStorage.setItem('wq_current_user', JSON.stringify(matchedUser));
+      updateNavbarUser(matchedUser);
+      signinForm.reset();
+      closeModal();
+      showToast(`Welcome back, ${matchedUser.name}!`);
+    });
+
+    function socialLogin(provider) {
+      const demoUser = { name: `${provider} User`, email: `user@${provider.toLowerCase()}.com` };
+      localStorage.setItem('wq_current_user', JSON.stringify(demoUser));
+      updateNavbarUser(demoUser);
+      closeModal();
+      showToast(`Signed in with ${provider}!`);
+    }
+
+    document.getElementById('forgotPwLink').addEventListener('click', () => {
+      showToast('Password reset link sent if email exists.');
+    });
+  </script>
+</body>
+</html>
